@@ -83,7 +83,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 		// Indexed type
 		if (header.hasColorMap) {
-			if (header.colorMapLength > 256 || header.colorMapSize !== 24 || header.colorMapType !== 1) {
+			if (header.colorMapLength > 256 || header.colorMapDepth !== 24 || header.colorMapType !== 1) {
 				throw new Error('Targa::checkHeader() - Invalid colormap for indexed type');
 			}
 		}
@@ -361,8 +361,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 	{
 		var req, tga = this;
 		req = new XMLHttpRequest();
-		req.responseType = 'arraybuffer';
 		req.open('GET', path, true);
+		req.responseType = 'arraybuffer';
 		req.onload = function() {
 			if (this.status === 200) {
 				tga.load(new Uint8Array(req.response));
